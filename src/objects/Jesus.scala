@@ -14,24 +14,30 @@ import scala.collection.mutable
 
 
 case class Jesus(position: Vector2, var keyStatus: mutable.HashMap[Int, Boolean]) extends DrawableObject {
-  private val img: BitmapImage = new BitmapImage("src/res/jesus.png")
-  private var posY: Float = position.y
+  private var angle: Float = 0
   private var posX: Float = position.x
-  var speed: Float = 0f
+  private var posY: Float = position.y
+  private val img: BitmapImage = new BitmapImage("src/res/jesus.png")
+  private var speed: Float = 0
 
 
   override def draw(g: GdxGraphics): Unit = {
     // Gravity
     speed += 0.5f
     if(speed > 10) speed = 10
-    if(posY > 100) posY -= speed
+    if(posY > 85) posY -= speed
+
+    // Keyboard control (Jump)
     if (keyStatus(Input.Keys.SPACE)) {
       speed = -10
       posY += 1
+      angle = 10
     }
-    println(speed)
+    else if(posY == 85) angle = 0 // If Jesus hits the ground the angle is set to 0 (to check the ground level just println posY)
+    else (angle = -10) // If Jesus is falling, he faces down
+    println(posY)
 
-    g.drawTransformedPicture(posX, posY, 0, 0.4f, img)
+    g.drawTransformedPicture(posX, posY, angle, 0.3f, img)
 
   }
 }

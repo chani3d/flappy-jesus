@@ -26,7 +26,8 @@ class FlappyJesus extends PortableApplication(1920, 1080) {
     setTitle("Flappy Jesus - Sebastian Cruz Go 2024")
     toDraw.add(Background())
     toDraw.add(Clouds())
-    toDraw.add(Jesus(new Vector2(150, 500), keyStatus))
+    toDraw.add(Jesus(new Vector2(250, 500), keyStatus))
+    toDraw.add(Column())
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
