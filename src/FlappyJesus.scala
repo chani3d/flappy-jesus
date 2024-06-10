@@ -20,14 +20,11 @@ class FlappyJesus extends PortableApplication(1920, 1080) {
     toDraw.add(new Background)
     toDraw.add(new Jesus)
     toDraw.add(new Clouds)
-
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
-    g.drawSchoolLogo()
     toDraw.forEach(element => element.draw(g))
-
+    g.drawSchoolLogo()
   }
-
 }

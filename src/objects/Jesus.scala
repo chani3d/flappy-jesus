@@ -5,9 +5,9 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 
 
 case class Jesus() extends DrawableObject {
-  val img = new BitmapImage("src/res/jesus.png")
-  val posy: Int = 100
-  var posx = 0
+  private val img = new BitmapImage("src/res/jesus.png")
+  private val posy: Int = 100
+  private var posx = 0
 
   override def draw(g: GdxGraphics): Unit = {
     g.drawTransformedPicture(posx, posy, 0, 0.3f, img)
