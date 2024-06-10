@@ -7,11 +7,11 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 case class Clouds() extends DrawableObject {
   private val img: BitmapImage = new BitmapImage("src/res/clouds.png")
   private val posy: Int = 92
-  private var posx: Int = 1980 - 100
+  private var posx: Int = 1920 + 60
 
   override def draw(g: GdxGraphics): Unit = {
     g.drawTransformedPicture(posx, posy, 0, 1, img)
-    if(posx == 0) posx = 1980 - 100 // Loop effect
+    if(posx == 100) posx = 1920 + 60 // Loop effect
     posx -= 10 // Changes the speed
   }
 }

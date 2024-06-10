@@ -15,9 +15,9 @@ object FlappyJesus extends App {
   new FlappyJesus
 }
 
-class FlappyJesus extends PortableApplication(1920, 1080) {
+class FlappyJesus extends PortableApplication(1920, 1080){
   private var toDraw: util.Vector[DrawableObject] = new util.Vector[DrawableObject]
-  // Key management
+  // Key check (62 is the spacebar)
   private val keyStatus: mutable.HashMap[Int, Boolean] = mutable.HashMap(
     Input.Keys.SPACE -> false
   )
@@ -27,14 +27,13 @@ class FlappyJesus extends PortableApplication(1920, 1080) {
     toDraw.add(Background())
     toDraw.add(Clouds())
     toDraw.add(Jesus(new Vector2(250, 500), keyStatus))
-    toDraw.add(Column())
+    toDraw.add(Column(keyStatus))
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
     toDraw.forEach(element => element.draw(g))
     g.drawSchoolLogo()
-
   }
 
   // Keybord management (Jump)
@@ -45,6 +44,18 @@ class FlappyJesus extends PortableApplication(1920, 1080) {
   override def onKeyUp(keycode: Int): Unit = {
     super.onKeyUp(keycode)
     keyStatus.put(keycode, false)
+    // 62 is the keycode for the spacebar, we can control this by printing the keycode
+  }
+
+  // Mouse management (Jump)
+  override def onClick(x: Int, y: Int, button: Int): Unit = {
+    super.onClick(x, y, button)
+    keyStatus.put(62, true)
+  }
+
+  override def onRelease(x: Int, y: Int, button: Int): Unit = {
+    super.onRelease(x, y, button)
+    keyStatus.put(62, false)
   }
 
 }

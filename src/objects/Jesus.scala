@@ -13,7 +13,8 @@ import scala.collection.mutable.HashMap
 import scala.collection.mutable
 
 
-case class Jesus(position: Vector2, var keyStatus: mutable.HashMap[Int, Boolean]) extends DrawableObject {
+case class Jesus(position: Vector2, keyStatus: mutable.HashMap[Int, Boolean]) extends DrawableObject {
+  private var isStarted: Boolean = false
   private var angle: Float = 0
   private var posX: Float = position.x
   private var posY: Float = position.y
@@ -22,20 +23,23 @@ case class Jesus(position: Vector2, var keyStatus: mutable.HashMap[Int, Boolean]
 
 
   override def draw(g: GdxGraphics): Unit = {
-    // Gravity
-    speed += 0.5f
-    if(speed > 10) speed = 10
-    if(posY > 85) posY -= speed
+    // Game loop
+    if(isStarted){
+      // Gravity
+      speed += 0.5f
+      if(speed > 10) speed = 10
+      if(posY > 85) posY -= speed
+    }
 
     // Keyboard control (Jump)
     if (keyStatus(Input.Keys.SPACE)) {
+      isStarted = true
       speed = -10
       posY += 1
       angle = 10
-    }
+    } else if(!isStarted) angle = 0
     else if(posY == 85) angle = 0 // If Jesus hits the ground the angle is set to 0 (to check the ground level just println posY)
     else (angle = -10) // If Jesus is falling, he faces down
-    println(posY)
 
     g.drawTransformedPicture(posX, posY, angle, 0.3f, img)
 
