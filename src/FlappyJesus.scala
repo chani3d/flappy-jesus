@@ -12,12 +12,13 @@ object FlappyJesus extends App {
   new FlappyJesus
 }
 
-class FlappyJesus extends PortableApplication(900, 400) {
+class FlappyJesus extends PortableApplication(1920, 1080) {
   private var toDraw: util.Vector[DrawableObject] = new util.Vector[DrawableObject]
 
   override def onInit(): Unit = {
     setTitle("Flappy Jesus - Sebastian Cruz Go 2024")
     toDraw.add(new Jesus)
+    toDraw.add(new Clouds)
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
