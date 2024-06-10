@@ -5,9 +5,9 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 
 
 case class Clouds() extends DrawableObject {
-  private val img = new BitmapImage("src/res/clouds.png")
+  private val img: BitmapImage = new BitmapImage("src/res/clouds.png")
   private val posy: Int = 100
-  private var posx = 1980 - 100
+  private var posx: Int = 1980 - 100
 
   override def draw(g: GdxGraphics): Unit = {
     g.drawTransformedPicture(posx, posy, 0, 1, img)

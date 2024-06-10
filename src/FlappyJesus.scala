@@ -5,6 +5,7 @@ import objects._
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
+import com.badlogic.gdx.math.{Interpolation, Vector2}
 
 import java.util
 
@@ -17,9 +18,9 @@ class FlappyJesus extends PortableApplication(1920, 1080) {
 
   override def onInit(): Unit = {
     setTitle("Flappy Jesus - Sebastian Cruz Go 2024")
-    toDraw.add(new Background)
-    toDraw.add(new Jesus)
-    toDraw.add(new Clouds)
+    toDraw.add(Background())
+    toDraw.add(Clouds())
+    toDraw.add(Jesus(new Vector2(150, 500)))
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
