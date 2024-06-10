@@ -10,7 +10,7 @@ case class Jesus() extends DrawableObject {
   var posx = 0
 
   override def draw(g: GdxGraphics): Unit = {
-    g.drawTransformedPicture(posx, posy, 0, 0.15f, img)
+    g.drawTransformedPicture(posx, posy, 0, 0.3f, img)
     if(posx == 900) posx = 0
     posx += 10 // Changes the speed
   }
