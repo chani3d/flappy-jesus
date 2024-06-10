@@ -21,21 +21,19 @@ class FlappyJesus extends PortableApplication(1920, 1080) {
   private val keyStatus: mutable.HashMap[Int, Boolean] = mutable.HashMap(
     Input.Keys.SPACE -> false
   )
-  var speed: Jesus = Jesus()
 
   override def onInit(): Unit = {
     setTitle("Flappy Jesus - Sebastian Cruz Go 2024")
     toDraw.add(Background())
     toDraw.add(Clouds())
-    toDraw.add(Jesus())
+    toDraw.add(Jesus(new Vector2(150, 500), keyStatus))
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
-    println(Jesus().speed)
     g.clear()
     toDraw.forEach(element => element.draw(g))
     g.drawSchoolLogo()
-    if (keyStatus(Input.Keys.SPACE)) println("okay")
+
   }
 
   // Keybord management (Jump)
