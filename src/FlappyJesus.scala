@@ -12,6 +12,7 @@ import java.util
 import scala.collection.mutable
 
 object FlappyJesus extends App {
+  var isStarted: Boolean = false
   new FlappyJesus
 }
 
@@ -22,18 +23,25 @@ class FlappyJesus extends PortableApplication(1920, 1080){
     Input.Keys.SPACE -> false
   )
 
+  private def areColliding(): Boolean = {
+    val xOverlap = Jesus.position.x < Column.posX + Column.w && Jesus.position.x + Jesus.w > Column.posX
+    val yOverlap = Jesus.position.y < Column.posYTop + Column.h && Jesus.position.y + Jesus.h > Column.posYTop
+    xOverlap && yOverlap
+  }
+
   override def onInit(): Unit = {
     setTitle("Flappy Jesus - Sebastian Cruz Go 2024")
     toDraw.add(Background())
     toDraw.add(Clouds())
-    toDraw.add(Jesus(new Vector2(250, 500), keyStatus))
+    toDraw.add(Jesus(keyStatus))
     toDraw.add(Column(keyStatus))
   }
 
   override def onGraphicRender(g: GdxGraphics): Unit = {
     g.clear()
     toDraw.forEach(element => element.draw(g))
-    g.drawSchoolLogo()
+    if(areColliding()) FlappyJesus.isStarted = false
+    g.drawSchoolLogoUpperRight()
   }
 
   // Keybord management (Jump)
@@ -57,5 +65,4 @@ class FlappyJesus extends PortableApplication(1920, 1080){
     super.onRelease(x, y, button)
     keyStatus.put(62, false)
   }
-
 }

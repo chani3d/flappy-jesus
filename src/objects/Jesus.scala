@@ -12,29 +12,33 @@ import scala.collection.mutable.HashMap
 import scala.collection.mutable.HashMap
 import scala.collection.mutable
 
-
-case class Jesus(position: Vector2, keyStatus: mutable.HashMap[Int, Boolean]) extends DrawableObject {
+object Jesus {
+  var speed: Float = 0
+  var w: Int = 350 * 0.3.toInt
+  var h: Int = (550 * 0.3).toInt
+  val position: Vector2 = new Vector2(250, 500)
+}
+case class Jesus(keyStatus: mutable.HashMap[Int, Boolean]) extends DrawableObject {
+  private val position: Vector2 = new Vector2(250, 500)
   private var isStarted: Boolean = false
   private var angle: Float = 0
   private var posX: Float = position.x
   private var posY: Float = position.y
   private val img: BitmapImage = new BitmapImage("src/res/jesus.png")
-  private var speed: Float = 0
-
 
   override def draw(g: GdxGraphics): Unit = {
     // Game loop
     if(isStarted){
       // Gravity
-      speed += 0.5f
-      if(speed > 10) speed = 10
-      if(posY > 85) posY -= speed
+      Jesus.speed += 0.5f
+      if(Jesus.speed > 10) Jesus.speed = 10
+      if(posY > 85) posY -= Jesus.speed
     }
 
     // Keyboard control (Jump)
     if (keyStatus(Input.Keys.SPACE)) {
       isStarted = true
-      speed = -10
+      Jesus.speed = -10
       posY += 1
       angle = 10
     } else if(!isStarted) angle = 0

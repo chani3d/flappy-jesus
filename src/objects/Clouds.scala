@@ -1,4 +1,5 @@
 package ch.hevs.gdx2d.objects
+import ch.hevs.gdx2d.FlappyJesus
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
@@ -11,7 +12,9 @@ case class Clouds() extends DrawableObject {
 
   override def draw(g: GdxGraphics): Unit = {
     g.drawTransformedPicture(posx, posy, 0, 1, img)
-    if(posx == 100) posx = 1920 + 60 // Loop effect
-    posx -= 10 // Changes the speed
+    if(FlappyJesus.isStarted){
+      if(posx == 100) posx = 1920 + 60 // Loop effect
+      posx -= 10 // Changes the speed
+    }
   }
 }
