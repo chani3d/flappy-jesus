@@ -3,7 +3,6 @@ import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 
-
 case class Clouds() extends DrawableObject {
   private val img: BitmapImage = new BitmapImage("src/res/images/clouds.png")
   private val posy: Int = 92

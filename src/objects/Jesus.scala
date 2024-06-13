@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.Input
 import scala.collection.mutable
 
-
 object Jesus {
   private val position: Vector2 = new Vector2(250, 500)
   var posX: Float = position.x

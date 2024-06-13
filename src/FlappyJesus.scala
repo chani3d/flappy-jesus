@@ -1,4 +1,5 @@
 import ch.hevs.gdx2d.components.audio.MusicPlayer
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
@@ -12,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.{InputEvent, Stage}
 import com.badlogic.gdx.scenes.scene2d.ui.{Skin, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import scala.util.Random
-
 import java.util
 import scala.collection.mutable
 
@@ -20,12 +20,14 @@ object FlappyJesus extends App {
   new FlappyJesus
 }
 
-class FlappyJesus extends PortableApplication(1920, 1080){
+class FlappyJesus extends PortableApplication(1920, 1080) {
   private var toDraw: util.Vector[DrawableObject] = new util.Vector[DrawableObject]
+
   // Key check (62 is the spacebar)
   private val keyStatus: mutable.HashMap[Int, Boolean] = mutable.HashMap(
     Input.Keys.SPACE -> false
   )
+
   private var skin: Skin = _
   private var stage: Stage = _
   private var onGame: Stage = _
@@ -34,30 +36,34 @@ class FlappyJesus extends PortableApplication(1920, 1080){
   private var exitGameButton: TextButton = _
   private var restartGameButton: TextButton = _
 
-
   private var d8bmFont: BitmapFont = _
   private var mainSong: MusicPlayer = _
   private var onGameSong: MusicPlayer = _
 
   private var bell: MusicPlayer = _
-  private var ninja0: MusicPlayer =_
-  private var ninja1: MusicPlayer =_
-  private var ninja2: MusicPlayer =_
+  private var ninja0: MusicPlayer = _
+  private var ninja1: MusicPlayer = _
+  private var ninja2: MusicPlayer = _
+
+  private var wallpaper: BitmapImage = _
 
   private val random: Random = new Random
 
-  def chooseShout(): MusicPlayer = {
-    val n: Int = random.between(0, 3)
-    if(n == 0)  ninja0
-    else if(n == 1)  ninja1
-    else  ninja2
+  private def chooseShout(): MusicPlayer = {
+    random.between(0, 3) match {
+      case 0 => ninja0
+      case 1 => ninja1
+      case _ => ninja2
+    }
   }
 
   override def onInit(): Unit = {
     // Interface
     setTitle("Flappy Jesus - Sebastian Cruz Go 2024")
-    val buttonWidth: Int = 180
-    val buttonHeight: Int = 30
+    wallpaper = new BitmapImage("src/res/images/wallpaper.png")
+
+    val buttonWidth = 180
+    val buttonHeight = 30
     stage = new Stage()
     onGame = new Stage()
     Gdx.input.setInputProcessor(stage) // Make the stage consume events
@@ -77,13 +83,11 @@ class FlappyJesus extends PortableApplication(1920, 1080){
     restartGameButton = new TextButton("Restart", skin)
     restartGameButton.setWidth(buttonWidth)
     restartGameButton.setHeight(buttonHeight)
-    restartGameButton.setPosition(Gdx.graphics.getWidth / 2 - buttonWidth / 2, (Gdx.graphics.getHeight / 2))
-
+    restartGameButton.setPosition(Gdx.graphics.getWidth / 2 - buttonWidth / 2, Gdx.graphics.getHeight / 2)
 
     stage.addActor(startGameButton)
     stage.addActor(exitGameButton)
     onGame.addActor(restartGameButton)
-
 
     // Buttons listeners
     startGameButton.addListener(new ClickListener() {
@@ -119,9 +123,7 @@ class FlappyJesus extends PortableApplication(1920, 1080){
     // Score font
     val d8bm = Gdx.files.internal("res/font/Diary of an 8-bit mage.otf")
     val parameter = new FreeTypeFontParameter()
-    var generator = new FreeTypeFontGenerator(d8bm)
-    // Font effects
-    generator = new FreeTypeFontGenerator(d8bm)
+    val generator = new FreeTypeFontGenerator(d8bm)
     parameter.size = generator.scaleForPixelHeight(80)
     parameter.color = Color.WHITE
     parameter.borderColor = Color.BLUE
@@ -159,8 +161,8 @@ class FlappyJesus extends PortableApplication(1920, 1080){
     restartGameButton.setVisible(true)
     Gdx.input.setInputProcessor(new GameInputProcessor)
   }
+
   private def endGame(g: GdxGraphics): Unit = {
-    g.drawStringCentered(g.getScreenHeight.toFloat / 2, s"Game Over", d8bmFont)
     bell.play()
     onGameSong.stop()
     Gdx.input.setInputProcessor(onGame)
@@ -182,12 +184,14 @@ class FlappyJesus extends PortableApplication(1920, 1080){
       g.drawStringCentered(g.getScreenHeight.toFloat / 7.0f / 2 + g.getScreenHeight.toFloat / 7.0f * 6, s"${Column.score}", d8bmFont)
 
       if (Gamestate.isGameOver) {
+        g.drawStringCentered(g.getScreenHeight.toFloat / 2, "Game Over", d8bmFont) // Not working
         endGame(g)
       }
     } else {
       stage.act()
       stage.draw()
     }
+    // g.drawPicture(1920 / 2, 1080 / 2, wallpaper) // Main menu wallpaper (not working)
     g.drawSchoolLogoUpperRight()
   }
 
@@ -209,6 +213,7 @@ class FlappyJesus extends PortableApplication(1920, 1080){
       keyStatus.put(keycode, true)
       true
     }
+
     override def keyUp(keycode: Int): Boolean = {
       keyStatus.put(keycode, false)
       true
