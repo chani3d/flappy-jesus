@@ -1,8 +1,31 @@
-## Flappy Jesus
+# Flappy Jesus
 
-### Usage
+Flappy Jesus is a simple and fun game inspired by the classic Flappy Bird. The objective of the game is to fly Jesus over columns and earn points. You can control the flight by using the spacebar or mouse clicks.
 
-This is a normal sbt project. You can compile code with `sbt compile`, run it with `sbt run`, and `sbt console` will start a Scala 3 REPL.
+## Table of Contents
+- [How to Play](#how-to-play)
+- [Controls](#controls)
+- [Screenshots](#screenshots)
 
-For more information on the sbt-dotty plugin, see the
-[scala3-example-project](https://github.com/scala/scala3-example-project/blob/main/README.md).
+## How to Play
+
+1. **Start the Game**
+
+2. **Objective:**
+   - Guide Jesus through the gaps between columns to earn points.
+   - The game continues until Jesus collides with a column or the ground.
+
+3. **Scoring:**
+   - Each successful pass through a gap earns you points.
+   - Try to achieve the highest score possible.
+
+4. **Game Over:**
+   - The game ends when Jesus hits a column or the ground.
+   - You can choose to play again.
+   
+## Controls
+
+- **Spacebar:** Press to make Jesus fly upwards.
+- **Mouse Click:** Click the left mouse button to make Jesus fly upwards.
+
+
